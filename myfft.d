@@ -30,7 +30,7 @@ real[] simple_sint(real[] value, immutable uint size) {
             fourier_value[i] += value[j] * sin(cast(real)PI * (i + 1.0) * (j + 0.5) / size);
         }
     }
-    fourier_value[] *= sqrt(2.0 / cast(real)size);
+    fourier_value[] *= sqrt(1.0 / cast(real)size);
 
     return fourier_value;
 }
