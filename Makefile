@@ -8,3 +8,6 @@ sor: sor.d $(OBJS)
 
 .d.o:
 	$(DD) $(DFLGS) -c $<
+
+clean:
+	rm -f ./*.o ./main

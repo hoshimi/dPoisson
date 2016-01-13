@@ -1,0 +1,4 @@
+name "dpoisson"
+description "Poission solvers on dlang."
+copyright "Copyright © 2016, Hoshimi"
+authors "Hoshimi"
