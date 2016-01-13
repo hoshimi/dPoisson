@@ -1,3 +1,7 @@
+.dub
+docs.json
+__dummy.html
+*.o
+*.obj
 *.csv
-main*.d
 *.o
