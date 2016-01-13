@@ -1,4 +1,5 @@
 name "dpoisson"
+targetType "library"
 description "Poission solvers on dlang."
 copyright "Copyright © 2016, Hoshimi"
 authors "Hoshimi"

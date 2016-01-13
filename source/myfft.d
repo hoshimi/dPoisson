@@ -5,13 +5,13 @@ import std.math;
 // Simple Cosine Transform
 // Type:DCT-II 
 // Calculate F_i = dx * \sum_{j=0}^N f_j cos(PI * i * (j + 1/2)) / N)
-real[] simple_cost(real[] value, immutable uint size) {
-    real[] fourier_value = new real[size];
+T[] simple_cost(T)(T[] value, immutable uint size) {
+    T[] fourier_value = new T[size];
     fourier_value[] = 0.0;
     
     foreach(i;0..size) {
         foreach(j;0..size) {
-            fourier_value[i] += value[j] * cos(cast(real)PI * i * (j + 0.5) / size) / (sqrt(cast(real)size));
+            fourier_value[i] += value[j] * cos(cast(T)PI * i * (j + 0.5) / size) / (sqrt(cast(T)size));
         }
     }
 
@@ -21,16 +21,16 @@ real[] simple_cost(real[] value, immutable uint size) {
 // Simple Sine Transform
 // Type:DST-II 
 // Calculate F_i = dx * \sum_{j=0}^N f_j sin(PI * i * (j - 1/2)) / N)
-real[] simple_sint(real[] value, immutable uint size) {
-    real[] fourier_value = new real[size];
+T[] simple_sint(T)(T[] value, immutable uint size) {
+    T[] fourier_value = new T[size];
     fourier_value[] = 0.0;
     
     foreach(i;0..size) {
         foreach(j;0..size) {
-            fourier_value[i] += value[j] * sin(cast(real)PI * (i + 1.0) * (j + 0.5) / size);
+            fourier_value[i] += value[j] * sin(cast(T)PI * (i + 1.0) * (j + 0.5) / size);
         }
     }
-    fourier_value[] *= sqrt(1.0 / cast(real)size);
+    fourier_value[] *= sqrt(1.0 / cast(T)size);
 
     return fourier_value;
 }
@@ -38,23 +38,23 @@ real[] simple_sint(real[] value, immutable uint size) {
 // Simple Inverse Sine Transform
 // Type:DST-III 
 // Calculate F_i = dx * \sum_{j=0}^N f_j sin(PI * i * (j - 1/2)) / N)
-real[] simple_isint(real[] value, immutable uint size) {
-    real[] fourier_value = new real[size];
+T[] simple_isint(T)(T[] value, immutable uint size) {
+    T[] fourier_value = new T[size];
     fourier_value[] = 0.0;
     
     foreach(i;0..size) {
         foreach(j;0..size) {
-            fourier_value[i] += value[j] * sin(cast(real)PI * (i + 0.5) * (j + 1.0) / size);
+            fourier_value[i] += value[j] * sin(cast(T)PI * (i + 0.5) * (j + 1.0) / size);
         }
     }
-    fourier_value[] *= sqrt(2.0 / cast(real)size);
+    fourier_value[] *= sqrt(2.0 / cast(T)size);
 
     return fourier_value;
 }
 
 // Bit reverse scrambler
-real[] scramble(real[] arg_value, uint n){
-    real[] value = arg_value.dup;
+T[] scramble(T)(T[] arg_value, uint n){
+    T[] value = arg_value.dup;
     uint[] ip = new uint[n];
     uint k = n;
     uint m = 1;
@@ -71,7 +71,7 @@ real[] scramble(real[] arg_value, uint n){
             for(uint j = 0; j < i; j++ ){
                 uint ji = j + ip[i];
                 uint ij = i + ip[j];
-                real temp = value[ji];
+                T temp = value[ji];
                 value[ji] = value[ij];
                 value[ij] = temp;
             }
@@ -81,7 +81,7 @@ real[] scramble(real[] arg_value, uint n){
             for(uint j = 0; j < i; j++ ){
                 uint ji = j + ip[i];
                 uint ij = i + ip[j];
-                real temp = value[ji];
+                T temp = value[ji];
                 value[ji] = value[ij];
                 value[ij] = temp;
 
@@ -97,12 +97,12 @@ real[] scramble(real[] arg_value, uint n){
 
 // Time 1/2 Shift Real Fast Fourier Transform
 // Type:DCT-II + DST-II
-real[] rfft(real[] arg_value, immutable uint n) {
-    real[] value = arg_value.dup;
+T[] rfft(T)(T[] arg_value, immutable uint n) {
+    T[] value = arg_value.dup;
     uint m, mh, mq, j0, j1, jr, ji, kr, ki, irev;
-    real wr, wi, xr, xi;
+    T wr, wi, xr, xi;
     value = scramble(value, n);
-    real theta = - 2.0 * PI / cast(real)n;
+    T theta = - 2.0 * PI / cast(T)n;
     value[0] /= sqrt(2.0);
 
     // for mh is 1, 2, 4, .. , n/2
@@ -171,12 +171,12 @@ real[] rfft(real[] arg_value, immutable uint n) {
 // Fast Sine Transform
 // Type:DST-II 
 // Calculate F_i = sqrt(2/n) * \sum_{j=0}^N f_j sin(PI * i * (j + 1/2)) / N)
-real[] sinfft(real[] arg_value, immutable uint n) {
-    real[] value = arg_value.dup;
+T[] sinfft(T)(T[] arg_value, immutable uint n) {
+    T[] value = arg_value.dup;
     uint m, mh, mq, j0, j1, jr, ji, kr, ki, irev;
-    real wr, wi, xr, xi;
+    T wr, wi, xr, xi;
     value = scramble(value, n);
-    real theta = - PI / cast(real)n;
+    T theta = - PI / cast(T)n;
     value[0] /= sqrt(2.0);
 
     // for mh is 2, 4, .. , n/2
@@ -250,12 +250,12 @@ real[] sinfft(real[] arg_value, immutable uint n) {
 // Fast Cosine Transform
 // Type:DCT-II 
 // Calculate F_i = sqrt(2/n) * \sum_{j=0}^N f_j cos(PI * i * (j + 1/2)) / N)
-real[] cosfft(real[] arg_value, immutable uint n) {
-    real[] value = arg_value.dup;
+T[] cosfft(T)(T[] arg_value, immutable uint n) {
+    T[] value = arg_value.dup;
     uint m, mh, mq, j0, j1, jr, ji, kr, ki, irev;
-    real wr, wi, xr, xi;
+    T wr, wi, xr, xi;
     value = scramble(value, n);
-    real theta = - PI / cast(real)n;
+    T theta = - PI / cast(T)n;
     value[0] /= sqrt(2.0);
 
     // for mh is 2, 4, .. , n/2
@@ -329,12 +329,12 @@ real[] cosfft(real[] arg_value, immutable uint n) {
 // Fast Inverse Cosine Transform
 // Type:DCT-III
 // Calculate F_i = sqrt(2/n) * \sum_{j=0}^N f_j cos(PI * j * (i + 1/2)) / N)
-real[] icosfft(real[] arg_value, immutable uint n) {
-    real[] value = arg_value.dup;
+T[] icosfft(T)(T[] arg_value, immutable uint n) {
+    T[] value = arg_value.dup;
 
     uint m, mh, mq, j0, j1, jr, ji, kr, ki, irev;
-    real wr, wi, xr, xi;
-    real theta = PI / cast(real)n;
+    T wr, wi, xr, xi;
+    T theta = PI / cast(T)n;
     value[0] /= sqrt(2.0);
 
     if(n > 1) {
@@ -397,24 +397,24 @@ real[] icosfft(real[] arg_value, immutable uint n) {
     return scramble(value, n);
 }
 
-real[] bg_cosfft(real[] value, immutable uint size) {
+T[] bg_cosfft(T)(T[] value, immutable uint size) {
     uint m, mh, j0, j1, irev;
     value = scramble(value, size);
 
     /* --- butterflies ---*/
-    real theta = - PI / (2.0 * cast(real)size);
+    T theta = - PI / (2.0 * cast(T)size);
 
     for(mh = 1; (m = mh << 1) <= size; mh = m) {
         irev = 0;
 
         for(uint i = 0; i < size ; i += m) {
-            real c2 = 2.0 * cos(theta * (irev + mh));
+            T c2 = 2.0 * cos(theta * (irev + mh));
             for(uint k = size>>1; k > (irev ^= k); k >>= 1){}
 
             for(uint j = 0; j < mh ; j++){
                 j0 = i + j;
                 j1 = size - mh - i + j;
-                real temp = value[j0] - value[j1];
+                T temp = value[j0] - value[j1];
                 value[j0] += value[j1];
                 value[j1] = c2 * temp;
             }
