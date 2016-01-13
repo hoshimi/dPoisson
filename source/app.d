@@ -237,10 +237,10 @@ void main() {
         }
     }*/
 
-    real[N][N] phi = solvePoisson2D(rho, N, dx, dy, false);
-    outputCSV!(real[N][N])(phi, "test-phi.csv", " ", true);
-    outputCSV!(real[N][N])(ideal_phi, "test-phi.csv", " ", false);
-    real[] phi_1d = solvePoisson1D(rho_1d, N, dx, false);
-    outputCSV1d!(real[])(phi_1d, "test-phi-1d.csv", " ", true);
-    outputCSV1d!(real[])(ideal_phi_1d, "test-phi-1d.csv", " ", false);
+    // real[N][N] phi = solvePoisson2D(rho, N, dx, dy, false);
+    // outputCSV!(real[N][N])(phi, "test-phi.csv", " ", true);
+    // outputCSV!(real[N][N])(ideal_phi, "test-phi.csv", " ", false);
+    // real[] phi_1d = solvePoisson1D(rho_1d, N, dx, false);
+    // outputCSV1d!(real[])(phi_1d, "test-phi-1d.csv", " ", true);
+    // outputCSV1d!(real[])(ideal_phi_1d, "test-phi-1d.csv", " ", false);
 }

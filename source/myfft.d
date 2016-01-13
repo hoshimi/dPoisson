@@ -126,7 +126,7 @@ real[] rfft(real[] arg_value, immutable uint n) {
         for(ji = mq; ji < n; ji += m) {
             wr = cos(0.5 * theta * irev);
             wi = sin(0.5 * theta * irev);
-            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){};
+            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){}
             // ki = 3mh/2, 7mh/2, ..
             ki = ji + mh;
 
@@ -144,7 +144,7 @@ real[] rfft(real[] arg_value, immutable uint n) {
         for(uint i = 0; i < n; i += m) {
             wr = cos(theta * irev);
             wi = sin(theta * irev);
-            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){};
+            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){}
             // j = 1, 2, 3, .. , mh/2
             for(uint j = 1; j < mq; j++){
                 jr = i + j;
@@ -189,7 +189,7 @@ real[] sinfft(real[] arg_value, immutable uint n) {
         for(jr = 0; jr < n; jr += m) {
             wr = cos(0.5 * theta * (irev + mq));
             wi = sin(0.5 * theta * (irev + mq));
-            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){};
+            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){}
 
             // ki = jr + 1, jr + 2, jr + 4, .. jr + n/4
             // kr = n - 1 - jr, n - 2 - jr, .. 3n/4 - jr
@@ -215,7 +215,7 @@ real[] sinfft(real[] arg_value, immutable uint n) {
         for(uint i = 0; i < n; i += m) {
             wr = cos(theta * (irev + mq));
             wi = sin(theta * (irev + mq));
-            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){};
+            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){}
             for(uint j = 1; j < mq; j++){
                 jr = i + j;
                 ki = i + mh - j;
@@ -268,7 +268,7 @@ real[] cosfft(real[] arg_value, immutable uint n) {
         for(jr = 0; jr < n; jr += m) {
             wr = cos(0.5 * theta * (irev + mq));
             wi = sin(0.5 * theta * (irev + mq));
-            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){};
+            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){}
 
             // ki = jr + 1, jr + 2, jr + 4, .. jr + n/4
             // kr = n - 1 - jr, n - 2 - jr, .. 3n/4 - jr
@@ -294,7 +294,7 @@ real[] cosfft(real[] arg_value, immutable uint n) {
         for(uint i = 0; i < n; i += m) {
             wr = cos(theta * (irev + mq));
             wi = sin(theta * (irev + mq));
-            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){};
+            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){}
             for(uint j = 1; j < mq; j++){
                 jr = i + j;
                 ki = i + mh - j;
@@ -351,7 +351,7 @@ real[] icosfft(real[] arg_value, immutable uint n) {
         for(jr = 0; jr < n; jr += m) {
             wr = cos(0.5 * theta * (irev + mq));
             wi = sin(0.5 * theta * (irev + mq));
-            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){};
+            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){}
             ki = jr + mq;
             kr = n - ki;
 
@@ -373,7 +373,7 @@ real[] icosfft(real[] arg_value, immutable uint n) {
         for(uint i = 0; i < n; i += m) {
             wr = cos(theta * (irev + mq));
             wi = sin(theta * (irev + mq));
-            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){};
+            for(uint k = n >> 2; k > (irev ^= k); k >>= 1){}
 
             for(uint j = 1; j < mq; j++) {
                 jr = i + j;
@@ -409,7 +409,7 @@ real[] bg_cosfft(real[] value, immutable uint size) {
 
         for(uint i = 0; i < size ; i += m) {
             real c2 = 2.0 * cos(theta * (irev + mh));
-            for(uint k = size>>1; k > (irev ^= k); k >>= 1){};
+            for(uint k = size>>1; k > (irev ^= k); k >>= 1){}
 
             for(uint j = 0; j < mh ; j++){
                 j0 = i + j;
